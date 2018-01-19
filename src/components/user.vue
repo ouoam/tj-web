@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       user: {
-        name: "Hi Hi"
+        name: 'Hi Hi'
       }
     }
   }

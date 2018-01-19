@@ -7,9 +7,9 @@
         <ul class="noBullet">
           <li><b>{{user.nickname}}</b> - {{user.gender}}</li>
           <li>{{user.occupation}} / {{user.type}}</li>
-          <li v-if="user.org && user.orgID"><i class="fas fa-users"></i> <router-link :to="{name: 'orgView', params: {id: user.orgID}}">{{user.org}}</router-link></li>
-          <li v-if="user.email"><i class="far fa-envelope"></i> {{user.email}}</li>
-          <li v-if="user.tel"><i class="fas fa-phone"></i> {{user.tel}}</li>
+          <li><i class="fas fa-users"></i> <router-link :to="{name: 'orgView', params: {id: user.orgID}}">{{user.org}}</router-link></li>
+          <li><i class="far fa-envelope"></i> {{user.email}}</li>
+          <li><i class="fas fa-phone"></i> {{user.tel}}</li>
         </ul>
       </div>
     </div>
@@ -19,10 +19,10 @@
         <div class="infoGroup">
           <h4>Location</h4>
           <ul class="noBullet">
-            <li><span v-if="user.address1">{{user.address1}}</span><span v-if="user.address2"> {{user.address2}}</span>,</li>
-            <li v-if="user.city">    {{user.city}},</li>
-            <li v-if="user.province">{{user.province}},</li>
-            <li v-if="user.country"> {{user.country}} {{user.zip}}</li>
+            <li>{{user.address1}} {{user.address2}},</li>
+            <li>{{user.city}},</li>
+            <li>{{user.province}},</li>
+            <li>{{user.country}} {{user.zip}}</li>
           </ul>
         </div>
 
@@ -63,7 +63,7 @@
 
 <script>
 export default {
-  name: 'userView',
+  name: 'projectView',
   data () {
     return {
       user: {
@@ -85,6 +85,11 @@ export default {
         province: 'Phitchit',
         zip: '66120',
         country: 'Thailand',
+
+        chronic: '-',
+        allergies: '-',
+        food: '-',
+        blood: 'O'
       },
       projects: [
         {
@@ -113,10 +118,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-ul.noBullet li span {
-  width: 130px;
-  float: left;
-}
-</style>
