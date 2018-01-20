@@ -8,7 +8,7 @@
     </div>
     <ul>
       <li><router-link :to="{ name: 'user'}">bar</router-link></li>
-      <li><router-link :to="{ name: 'userView', params: { id: 123 }}">bar</router-link></li>
+      <li><router-link :to="{ name: 'dataView', params: { type:'user', id: 123 }}">bar</router-link></li>
     </ul>
   </div>
 </template>
