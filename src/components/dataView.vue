@@ -5,16 +5,16 @@
       <img :src="data.pic" alt="" width="230" height="230">
       <div>
         <h2 v-if="data.name">{{data.name}}</h2>
-        <h2 v-if="data.title">{{data.title}} {{data.firstname}} {{data.lastname}}</h2>
+        <h2 v-if="data.title">{{textVar.title[data.title]}} {{data.firstname}} {{data.lastname}}</h2>
         <ul class="noBullet">
-          <li v-if="data.category">{{data.category}} - {{data.style}}</li>
+          <li v-if="data.category">{{textVar.category[data.category]}} - {{textVar.style[data.style]}}</li>
 
-          <li v-if="data.nickname"><b>{{data.nickname}}</b> - {{data.gender}}</li>
-          <li v-else-if="data.gender">{{data.gender}}</li>
-          <li v-if="data.occupation">{{data.occupation}} / {{data.type}}</li>
+          <li v-if="data.nickname"><b>{{data.nickname}}</b> - {{textVar.gender[data.gender]}}</li>
+          <li v-else-if="data.gender">{{textVar.gender[data.gender]}}</li>
+          <li v-if="data.occupation">{{textVar.occupation[data.occupation]}} / {{textVar.m_type[data.type]}}</li>
           <li v-if="data.organization && data.orgName"><i class="fas fa-building"></i> <router-link :to="{name: 'dataView', params: {type:'org', id: data.organization}}">{{data.orgName}}</router-link></li>
 
-          <li v-if="data.shortname"><b>{{data.shortname}}</b> - {{data.type}}</li>
+          <li v-if="data.shortname"><b>{{data.shortname}}</b> - {{textVar.o_type[data.type]}}</li>
           <li v-if="data.homepage"><i class="fas fa-globe"></i> <a :href="data.homepage" target="_blank">{{data.homepage}}</a></li>
           <li v-if="data.member"><i class="fas fa-users"></i> <router-link :to="{name: 'dataList', params: {type:'org', id: $route.params.id}}">{{data.member}} members</router-link></li>
 
@@ -36,7 +36,7 @@
             <li><span v-if="data.address1">{{data.address1}}</span><span v-if="data.address2"> {{data.address2}}</span>,</li>
             <li v-if="data.city">    {{data.city}},</li>
             <li v-if="data.province">{{data.province}},</li>
-            <li v-if="data.country"> {{data.country}} {{data.zip}}</li>
+            <li v-if="data.country"> {{textVar.country[data.country]}} {{data.zip}}</li>
           </ul>
         </div>
 
@@ -45,7 +45,7 @@
           <ul class="noBullet infoHealth">
             <li><span>Chronic diseaces </span> : {{data.chronic}}</li>
             <li><span>Allergies        </span> : {{data.allergies}}</li>
-            <li><span>Food restrictions</span> : {{data.food}}</li>
+            <li><span>Food restrictions</span> : {{textVar.food[data.food]}}</li>
             <li><span>Blood type       </span> : {{data.position}}</li>
           </ul>
         </div>
@@ -58,9 +58,9 @@
                 <img :src="member.pic" alt="" width="50" height="50">
               </div>
               <div class="col">
-                <h5><router-link :to="{name: 'dataView', params: {type:'user', id: member.id}}">{{member.title}} {{member.firstname}} {{member.lastname}}</router-link></h5>
+                <h5><router-link :to="{name: 'dataView', params: {type:'user', id: member.id}}">{{member.firstname}} {{member.lastname}}</router-link></h5>
                 <ul class="noBullet">
-                  <li><b>{{member.nickname}}</b> - {{member.occupation}}</li>
+                  <li><b>{{member.nickname}}</b> - {{textVar.occupation[member.occupation]}}</li>
                 </ul>
               </div>
             </div>
@@ -75,9 +75,9 @@
                 <img :src="teacher.pic" alt="" width="50" height="50">
               </div>
               <div class="col">
-                <h5><router-link :to="{name: 'dataView', params: {type:'user', id: teacher.id}}">{{teacher.name}}</router-link></h5>
+                <h5><router-link :to="{name: 'dataView', params: {type:'user', id: teacher.id}}">{{teacher.firstname}} {{teacher.lastname}}</router-link></h5>
                 <ul class="noBullet">
-                  <li><b>{{teacher.nickname}}</b> - {{teacher.occupation}}</li>
+                  <li><b>{{teacher.nickname}}</b> - {{textVar.occupation[teacher.occupation]}}</li>
                 </ul>
               </div>
             </div>
@@ -98,7 +98,7 @@
               <div class="col">
                 <h5><router-link :to="{name: 'dataView', params: {type:'project', id: project.id}}">{{project.name}}</router-link></h5>
                 <ul class="noBullet">
-                  <li>{{project.category}} - {{project.style}}</li>
+                  <li>{{textVar.category[project.category]}} - {{textVar.style[project.style]}}</li>
                 </ul>
               </div>
             </div>
@@ -116,7 +116,6 @@
             <li v-for="para in data.objective" :key="para.key">{{para.msg}}</li>
           </ul>
         </div>
-
         <div class="infoGroup" v-if="0">
           <h4>Documents</h4>
           <ul class="noBullet">
@@ -141,6 +140,11 @@ export default {
       members: {},
       teachers: {},
       projects: {}
+    }
+  },
+  props: {
+    textVar: {
+      required: true
     }
   },
   mounted () {
@@ -172,10 +176,12 @@ export default {
     updateData: function (params) {
       var self = this
 
-      this.data = {};
-      this.members = {};
-      this.teachers = {};
-      this.projects = {};
+      this.data = {}
+      this.members = {}
+      this.teachers = {}
+      this.projects = {}
+      // eslint-disable-next-line
+      $('.loading').show()
 
       var xhr = new XMLHttpRequest()
       xhr.onload = function () {
@@ -189,6 +195,8 @@ export default {
         self.members = self.isExist(this.response.members) ? this.response.members : {}
         self.teachers = self.isExist(this.response.teachers) ? this.response.teachers : {}
         self.projects = self.isExist(this.response.projects) ? this.response.projects : {}
+        // eslint-disable-next-line
+        $('.loading').hide()
       }
       xhr.responseType = 'json'
       xhr.open('GET', 'http://localhost/api.php?id=' + encodeURIComponent(params.id) + '&type=' + encodeURIComponent(params.type))
@@ -196,6 +204,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>
