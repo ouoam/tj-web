@@ -25,8 +25,9 @@ ul.noBullet {
 }
 
 .bg-light {
-  background-color: #f8f9fa!important;
+  background-color: #e9ecef!important;;
   padding: 2rem;
+  border-radius: .3rem;
 }
 .bg-light * {
   margin: auto;
