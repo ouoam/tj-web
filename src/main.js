@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import Navbar from './Navbar'
+import Foot from './Foot'
 import router from './router'
 
 Vue.config.productionTip = false
@@ -20,4 +21,11 @@ new Vue({
   router,
   components: { Navbar },
   template: '<navbar/>'
+})
+
+new Vue({
+  el: '#foot',
+  router,
+  components: { Foot },
+  template: '<foot/>'
 })

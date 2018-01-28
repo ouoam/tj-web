@@ -19,6 +19,9 @@ export default {
     var self = this
     var xhr = new XMLHttpRequest()
     xhr.onload = function () {
+      if (this.response.msg === 'Error') {
+        window.location.replace('/login.php')
+      }
       self.textVar = this.response
       // eslint-disable-next-line
       $('.loading').hide()
@@ -144,9 +147,6 @@ ul.noBullet {
 }
 .bg-light img {
   border-radius: 10px;
-}
-.bg-light div {
-  padding: 1rem;
-  max-width: calc(100% - 230px);
+  margin-left: calc(50% - 115px);
 }
 </style>

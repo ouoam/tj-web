@@ -2,26 +2,30 @@
   <div class="dataView" v-if="$route.params.type == 'org' || $route.params.type == 'project' || $route.params.type == 'user'">
     <!-- start big card -->
     <div class="row bg-light">
-      <img :src="data.pic" alt="" width="230" height="230">
-      <div>
-        <h2 v-if="data.name">{{data.name}}</h2>
-        <h2 v-if="data.title">{{textVar.title[data.title]}} {{data.firstname}} {{data.lastname}}</h2>
-        <ul class="noBullet">
-          <li v-if="data.category">{{textVar.category[data.category]}} - {{textVar.style[data.style]}}</li>
+      <div class="col-lg-4">
+        <img :src="data.pic" alt="" width="230" height="230">
+      </div>
+      <div class="col-lg-8">
+        <div>
+          <h2 v-if="data.name">{{data.name}}</h2>
+          <h2 v-if="data.title">{{textVar.title[data.title]}} {{data.firstname}} {{data.lastname}}</h2>
+          <ul class="noBullet">
+            <li v-if="data.category">{{textVar.category[data.category]}} - {{textVar.style[data.style]}}</li>
 
-          <li v-if="data.nickname"><b>{{data.nickname}}</b> - {{textVar.gender[data.gender]}}</li>
-          <li v-else-if="data.gender">{{textVar.gender[data.gender]}}</li>
-          <li v-if="data.occupation">{{textVar.occupation[data.occupation]}} / {{textVar.m_type[data.type]}}</li>
-          <li v-if="data.organization && data.orgName"><i class="fas fa-building"></i> <router-link :to="{name: 'dataView', params: {type:'org', id: data.organization}}">{{data.orgName}}</router-link></li>
+            <li v-if="data.nickname"><b>{{data.nickname}}</b> - {{textVar.gender[data.gender]}}</li>
+            <li v-else-if="data.gender">{{textVar.gender[data.gender]}}</li>
+            <li v-if="data.occupation">{{textVar.occupation[data.occupation]}} / {{textVar.m_type[data.type]}}</li>
+            <li v-if="data.organization"><i class="fas fa-building fa-fw"></i> <router-link :to="{name: 'dataView', params: {type:'org', id: data.organization}}">{{textVar.org[data.organization]}}</router-link></li>
 
-          <li v-if="data.shortname"><b>{{data.shortname}}</b> - {{textVar.o_type[data.type]}}</li>
-          <li v-if="data.homepage"><i class="fas fa-globe"></i> <a :href="data.homepage" target="_blank">{{data.homepage}}</a></li>
-          <li v-if="data.member"><i class="fas fa-users"></i> <router-link :to="{name: 'dataList', params: {type:'org', id: $route.params.id}}">{{data.member}} members</router-link></li>
+            <li v-if="data.shortname"><b>{{data.shortname}}</b> - {{textVar.o_type[data.type]}}</li>
+            <li v-if="data.homepage"><i class="fas fa-globe fa-fw"></i> <a :href="data.homepage" target="_blank">{{data.homepage}}</a></li>
+            <li v-if="data.member"><i class="fas fa-users fa-fw"></i> <router-link :to="{name: 'dataList', params: {type:'user'}, query: {organization: data.id}}">{{data.member}} members</router-link></li>
 
-          <li v-if="data.email"><i class="far fa-envelope"></i> {{data.email}}</li>
-          <li v-if="data.tel"><i class="fas fa-phone"></i> {{data.tel}}</li>
-          <li v-if="data.fax"><i class="fas fa-fax"></i> {{data.fax}}</li>
-        </ul>
+            <li v-if="data.email"><i class="far fa-envelope fa-fw"></i> {{data.email}}</li>
+            <li v-if="data.tel"><i class="fas fa-phone fa-fw"></i> {{data.tel}}</li>
+            <li v-if="data.fax"><i class="fas fa-fax fa-fw"></i> {{data.fax}}</li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- end big card -->

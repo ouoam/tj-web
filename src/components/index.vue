@@ -1,15 +1,15 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <div class="jumbotron">
-      <h1>Navbar example</h1>
-      <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
-      <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
+      <h1>TJ-SSF 2018</h1>
+      <p class="lead">TJ-SSF 2018 new design website (not finish)</p>
+      <p class="lead">Please login befor use</p>
+      <ul>
+        <li><router-link :to="{ name: 'dataList', params: { type:'user'}}">User List</router-link></li>
+        <li><router-link :to="{ name: 'dataList', params: { type:'org'}}">Organization List</router-link></li>
+        <li><router-link :to="{ name: 'dataList', params: { type:'project'}}">Project List</router-link></li>
+      </ul>
     </div>
-    <ul>
-      <li><router-link :to="{ name: 'user'}">bar</router-link></li>
-      <li><router-link :to="{ name: 'dataView', params: { type:'user', id: 123 }}">bar</router-link></li>
-    </ul>
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
   name: 'index',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   }
 }
